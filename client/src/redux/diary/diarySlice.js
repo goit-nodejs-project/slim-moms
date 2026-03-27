@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchDiary, addProduct, removeProduct } from '../diary/diaryOperations';
+import { fetchDiary, addProduct, removeProduct } from './diaryOperations';
 
 const today = new Date().toISOString().slice(0, 10);
 

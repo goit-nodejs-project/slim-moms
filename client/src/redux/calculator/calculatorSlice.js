@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { calculateDailyCalories } from '../calculator/calculatorOperations';
+import { calculateDailyCalories } from './calculatorOperations';
 
 const calculatorSlice = createSlice({
   name: 'calculator',

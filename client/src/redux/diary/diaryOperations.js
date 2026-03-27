@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import axiosInstance from '../../api/axiosInstance';
-import { showLoader, hideLoader } from '../slices/loaderSlice';
+import { showLoader, hideLoader } from '../loader/loaderSlice';
 
 export const fetchDiary = createAsyncThunk(
   'diary/fetchAll',

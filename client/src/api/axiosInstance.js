@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { clearUser } from '../redux/slices/authSlice';
+import { clearUser } from '../redux/auth/authSlice';
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
