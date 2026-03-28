@@ -1,16 +1,25 @@
 .form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 250px));
+  column-gap: 32px;
+  row-gap: 32px;
+  max-width: 560px;
+}
+
+.column {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  max-width: 360px;
+  gap: 32px;
 }
 
 .input {
   width: 100%;
   padding: 10px 0;
   border: none;
+  color: #9B9FAA;
   border-bottom: 1px solid #e0e0e0;
   font-size: 14px;
+  font-weight: 700;
   outline: none;
   background: transparent;
   transition: border-color 0.2s;
@@ -25,8 +34,8 @@
 }
 
 .btn {
+  grid-column: 1 / -1;
   align-self: flex-start;
-  margin-top: 8px;
   padding: 12px 32px;
   background-color: #fc842d;
   color: #fff;
@@ -36,22 +45,18 @@
   font-weight: 700;
   cursor: pointer;
   transition: background-color 0.2s;
+  width: fit-content;
 }
 
 .btn:hover {
   background-color: #f27b24;
 }
 
-.fields {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
 .fieldGroup {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  color: #9B9FAA;
 }
 
 .error {
@@ -62,7 +67,10 @@
 .bloodTypeLabel {
   font-size: 14px;
   color: #9b9faa;
-  margin-bottom: 4px;
+  margin: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+  display: block;
 }
 
 .bloodTypeGroup {
@@ -85,17 +93,30 @@
   cursor: pointer;
 }
 
-/* Tablet */
 @media (max-width: 1024px) {
   .form {
     max-width: 100%;
   }
 }
 
-/* Mobil */
-@media (max-width: 480px) {
+@media (max-width: 767px) {
+  .form {
+    grid-template-columns: 1fr;
+  }
+
   .btn {
-    width: 100%;
-    text-align: center;
+    justify-self: center;
+    width: fit-content;
+  }
+}
+
+@media (max-width: 480px) {
+  .form {
+    grid-template-columns: 1fr;
+  }
+
+  .btn {
+    justify-self: center;
+    width: fit-content;
   }
 }

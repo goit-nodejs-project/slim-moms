@@ -7,7 +7,6 @@ import DiaryAddProductForm from '../../components/DiaryAddProductForm/DiaryAddPr
 import DiaryProductsList from '../../components/DiaryProductsList/DiaryProductsList';
 import RightSideBar from '../../components/RightSideBar/RightSideBar';
 import Loader from '../../components/Loader/Loader';
-
 import styles from './DiaryPage.module.css';
 
 const DiaryPage = () => {
@@ -32,6 +31,7 @@ const DiaryPage = () => {
 
   return (
     <div className={styles.layout}>
+      <div className={styles.decorDesktop} aria-hidden="true" />
       <div className={styles.main}>
         <DiaryDateCalendar />
         <DiaryAddProductForm />
