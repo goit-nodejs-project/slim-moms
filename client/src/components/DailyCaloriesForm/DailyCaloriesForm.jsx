@@ -150,7 +150,9 @@ const DailyCaloriesForm = ({ onSuccess }) => {
         </div>
 
         <div className={styles.fieldGroup}>
-          <span className={styles.bloodTypeLabel}>Blood type *</span>
+          <span className={`${styles.bloodTypeLabel} ${errors.bloodType ? styles.bloodTypeLabelError : ''}`}>
+            Blood type *
+          </span>
           <div className={styles.bloodTypeGroup}>
             {[1, 2, 3, 4].map((type) => (
               <label key={type} className={styles.radioLabel}>

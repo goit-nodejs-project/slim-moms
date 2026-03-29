@@ -46,17 +46,22 @@
   margin: 0;
 }
 
+.input {
+  -moz-appearance: textfield;
+}
+
 .input:focus {
   border-bottom-color: #fc842d;
 }
 
-.inputError {
-  border-bottom-color: #f00;
+.input.inputError {
+  border-bottom-color: #f00 !important;
 }
 
 .btn {
   grid-column: 1 / -1;
   align-self: flex-start;
+  margin-left: auto;
   padding: 12px 32px;
   background-color: #fc842d;
   color: #fff;
@@ -73,9 +78,10 @@
   background-color: #f27b24;
 }
 
-.error {
+.fieldGroup .error {
+  color: #f00 !important;
+  margin: 0;
   font-size: 12px;
-  color: #f00;
 }
 
 .label {
@@ -96,9 +102,13 @@
   line-height: 1.2;
   font-weight: 700;
   letter-spacing: 0.04em;
-  padding-top: 36px;
-  padding-bottom: 12px;
+  padding-top: 24px;
+  padding-bottom: 24px;
   border-bottom: 1px solid #e0e0e0;
+}
+
+.bloodTypeLabelError {
+  border-bottom-color: #f00 !important;
 }
 
 .bloodTypeGroup {
