@@ -64,27 +64,30 @@ const DailyCaloriesForm = ({ onSuccess }) => {
       bloodType: Number(form.bloodType),
     };
 
-    try {
-      if (isLoggedIn) {
-        dispatch(showLoader());
-        await dispatch(calculateDailyCalories(formData)).unwrap();
-        onSuccess();
-      } else {
-        const dailyCalories =
-          10 * formData.weight +
-          6.25 * formData.height -
-          5 * formData.age -
-          161 -
-          10 * (formData.weight - formData.desiredWeight);
+    if (!isLoggedIn) {
+      const dailyCalories =
+        10 * formData.weight +
+        6.25 * formData.height -
+        5 * formData.age -
+        161 -
+        10 * (formData.weight - formData.desiredWeight);
 
-        dispatch(
-          setLocalResult({
-            dailyCalories: Math.round(dailyCalories),
-            notRecommended: [],
-          })
-        );
-        onSuccess();
-      }
+      dispatch(
+        setLocalResult({
+          dailyCalories: Math.round(dailyCalories),
+          notRecommended: [],
+        })
+      );
+
+      onSuccess();
+      return;
+    }
+
+    dispatch(showLoader());
+
+    try {
+      await dispatch(calculateDailyCalories(formData)).unwrap();
+      onSuccess();
     } catch (error) {
       console.error('Error calculating daily calories', error);
     } finally {

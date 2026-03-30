@@ -1,32 +1,46 @@
-// DiaryAddProductForm.jsx
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { addProduct } from '../../redux/diary/diaryOperations'; // ✅ Operations'tan import
+import { addProduct } from '../../redux/diary/diaryOperations';
 import { showLoader, hideLoader } from '../../redux/loader/loaderSlice';
+import axiosInstance from '../../api/axiosInstance';
 import styles from './DiaryAddProductForm.module.css';
 
 const DiaryAddProductForm = () => {
   const dispatch = useDispatch();
+
   const [productName, setProductName] = useState('');
   const [grams, setGrams] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [error, setError] = useState('');
+
   const debounceRef = useRef(null);
   const inputRef = useRef(null);
+  const lastQueryRef = useRef('');
 
   const handleProductChange = (e) => {
     const value = e.target.value;
     setProductName(value);
 
     clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => {
-      if (value.trim()) {
-        fetch(`/api/products?search=${value}`)
-          .then((res) => res.json())
-          .then((data) => setSuggestions(data))
-          .catch(() => setSuggestions([]));
-      } else {
+
+    debounceRef.current = setTimeout(async () => {
+      if (!value.trim()) {
+        setSuggestions([]);
+        return;
+      }
+
+      lastQueryRef.current = value;
+
+      try {
+        const { data } = await axiosInstance.get(
+          `/products?search=${value}`
+        );
+
+        if (lastQueryRef.current === value) {
+          setSuggestions(data);
+        }
+      } catch {
         setSuggestions([]);
       }
     }, 300);
@@ -48,7 +62,13 @@ const DiaryAddProductForm = () => {
 
     try {
       dispatch(showLoader());
-      await dispatch(addProduct({ productName, grams: Number(grams) })).unwrap();
+
+      await dispatch(
+        addProduct({
+          productName,
+          grams: Number(grams),
+        })
+      ).unwrap();
 
       setProductName('');
       setGrams('');
@@ -66,8 +86,13 @@ const DiaryAddProductForm = () => {
         setShowDropdown(false);
       }
     };
+
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      clearTimeout(debounceRef.current);
+    };
   }, []);
 
   return (
@@ -81,11 +106,12 @@ const DiaryAddProductForm = () => {
           onChange={handleProductChange}
           onFocus={() => setShowDropdown(true)}
         />
+
         {showDropdown && suggestions.length > 0 && (
           <div className={styles.dropdown}>
             {suggestions.map((item) => (
               <div
-                key={item.id}
+                key={item._id} // ✅ FIX
                 className={styles.dropdownItem}
                 onClick={() => handleSelectSuggestion(item)}
               >
