@@ -63,7 +63,7 @@ const CalculatorCalorieForm = () => {
     setErrors(fieldErrors);
     if (Object.keys(fieldErrors).length > 0) return;
 
-    dispatch(
+    await dispatch(
       calculateDailyCalories({
         height: +fields.height,
         weight: +fields.weight,
