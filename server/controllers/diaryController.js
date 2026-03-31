@@ -6,12 +6,19 @@ const addProduct = async (req, res, next) => {
     const { date, productId, weight } = req.body;
 
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-      return res.status(400).json({ message: 'date YYYY-MM-DD formatında olmalıdır' });
+      return res
+        .status(400)
+        .json({ message: 'date YYYY-MM-DD formatında olmalıdır' });
     }
 
     // Weight için sıfırdan büyük olma kontrolü eklendi
     if (!productId || !weight || weight <= 0) {
-      return res.status(400).json({ message: 'Geçerli bir productId ve 0 dan büyük bir weight gönderilmelidir' });
+      return res
+        .status(400)
+        .json({
+          message:
+            'Geçerli bir productId ve 0 dan büyük bir weight gönderilmelidir',
+        });
     }
 
     const product = await Product.findById(productId);
@@ -28,7 +35,7 @@ const addProduct = async (req, res, next) => {
       calories: portionCalories,
     };
 
-    // Eşzamanlı isteklerde patlamaması (race condition) için 
+    // Eşzamanlı isteklerde patlamaması (race condition) için
     // find-then-save yerine findOneAndUpdate kullanıyoruz.
     const dayInfo = await DayInfo.findOneAndUpdate(
       { date, userId: req.user._id },
@@ -41,7 +48,7 @@ const addProduct = async (req, res, next) => {
     );
 
     // Yeni kayıt veya update durumunda 201 Created döndürüyoruz
-    return res.status(201).json(dayInfo);
+    return res.status(dayInfo._id ? 200 : 201).json(dayInfo);
   } catch (err) {
     next(err);
   }
@@ -62,7 +69,9 @@ const deleteProduct = async (req, res, next) => {
 
     const productEntry = dayInfo.eatenProducts.id(productId);
     if (!productEntry) {
-      return res.status(404).json({ message: 'Product entry not found in this day record' });
+      return res
+        .status(404)
+        .json({ message: 'Product entry not found in this day record' });
     }
 
     dayInfo.daySummary.eatenCalories = Math.max(
@@ -84,7 +93,9 @@ const getDayInfo = async (req, res, next) => {
     const { date } = req.params;
 
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-      return res.status(400).json({ message: 'date YYYY-MM-DD formatında olmalıdır' });
+      return res
+        .status(400)
+        .json({ message: 'date YYYY-MM-DD formatında olmalıdır' });
     }
 
     const dayInfo = await DayInfo.findOne({ date, userId: req.user._id });

@@ -3,60 +3,21 @@ const { Schema, model } = require('mongoose');
 
 const usersSchema = new Schema(
   {
-    name: {
-      type: String,
-      required: true,
-      trim: true
-    },
-const userSchema = new Schema(
-  {
-    // auth fields will go here (name, email, password, token etc)
-
-    dailyCalories: {
-      type: Number,
-      default: 0,
-    },
-    notRecommendedProducts: {
-      type: [String],
-      default: [],
-    },
-  },
-  { versionKey: false }
-);
-
+    name: { type: String, required: true, trim: true },
     email: {
       type: String,
       required: true,
       unique: true,
       lowercase: true,
       trim: true,
-      match: [/^\S+@\S+\.\S+$/, 'Invalid email format'],
+      match: [/^\S+@\S+\.\S+$/, 'Invalid email'],
     },
-
-    password: {
-      type: String,
-      required: true
-    },
-
-    token: {
-      type: String,
-      default: null,
-    },
-
-    dailyCalories: {
-      type: Number,
-      default: 0,
-      min: 0,
-    },
-
-    notRecommendedProducts: {
-      type: [String], // ürün isimleri ya da ID ler
-      default: [],
-    },
+    password: { type: String, required: true },
+    token: { type: String, default: null },
+    dailyCalories: { type: Number, default: 0, min: 0 },
+    notRecommendedProducts: { type: [String], default: [] },
   },
-  {
-    timestamps: true, // createdAt updatedAt
-  }
+  { timestamps: true }
 );
 
 //Password Hashleme
@@ -66,8 +27,7 @@ usersSchema.pre('save', async function () {
   try {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
-  }
-  catch (error) {
+  } catch (error) {
     throw error; // Hatayı Mongoose yakalar
   }
 });

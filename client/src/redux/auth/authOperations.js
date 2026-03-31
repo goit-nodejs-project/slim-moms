@@ -49,3 +49,13 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     thunkAPI.dispatch(hideLoader());
   }
 });
+
+export const refreshUser = createAsyncThunk(
+  'auth/refresh',
+  async (_, thunkAPI) => {
+    const { token } = thunkAPI.getState().auth;
+    if (!token) return thunkAPI.rejectWithValue('No token');
+    const { data } = await axiosInstance.get('/auth/current');
+    return data;
+  }
+);

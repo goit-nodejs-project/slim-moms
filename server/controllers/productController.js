@@ -5,7 +5,9 @@ const searchProducts = async (req, res, next) => {
     const { q } = req.query;
 
     if (!q || q.trim() === '') {
-      return res.status(400).json({ message: 'Query parameter "q" is required' });
+      return res
+        .status(400)
+        .json({ message: 'Query parameter "q" is required' });
     }
 
     const products = await Product.find({
@@ -35,19 +37,19 @@ const buildCalorieResult = async (params) => {
 };
 
 // Girdi doğrulama için yardımcı fonksiyon
+// currentWeight (mevcut kilo) frontend'den alınır fakat kalori formülünde
+// kullanılmaz; formül yalnızca desiredWeight üzerinden çalışır.
 const validateInput = (body) => {
-  const { height, currentWeight, desiredWeight, age, bloodType } = body;
+  const { height, desiredWeight, age, bloodType } = body;
 
-  // Sayısal girdiler doğrulanıyor
   if (
-    [height, currentWeight, desiredWeight, age].some(
+    [height, desiredWeight, age].some(
       (v) => typeof v !== 'number' || v <= 0
     )
   ) {
-    return 'height, currentWeight, desiredWeight ve age pozitif sayı olmalıdır';
+    return 'height, desiredWeight ve age pozitif sayı olmalıdır';
   }
 
-  // bloodType doğrulanıyor
   if (![1, 2, 3, 4].includes(Number(bloodType))) {
     return 'bloodType 1, 2, 3 veya 4 olmalıdır';
   }
@@ -76,10 +78,14 @@ const getPrivateCalories = async (req, res, next) => {
       return res.status(400).json({ message: errorMsg });
     }
 
-    const { dailyCalories, notRecommendedProducts } = await buildCalorieResult(req.body);
+    const { dailyCalories, notRecommendedProducts } = await buildCalorieResult(
+      req.body
+    );
 
     req.user.dailyCalories = dailyCalories;
-    req.user.notRecommendedProducts = notRecommendedProducts.map((p) => p.title);
+    req.user.notRecommendedProducts = notRecommendedProducts.map(
+      (p) => p.title
+    );
     await req.user.save();
 
     return res.status(200).json({ dailyCalories, notRecommendedProducts });

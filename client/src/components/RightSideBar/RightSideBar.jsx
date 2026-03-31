@@ -56,7 +56,7 @@ const RightSideBar = () => {
               <ul className={styles.notRecommendedList}>
                 {notRecommended.map((product, index) => (
                   <li key={index} className={styles.notRecommendedItem}>
-                    {product}
+                    {product.title ?? product}
                   </li>
                 ))}
               </ul>

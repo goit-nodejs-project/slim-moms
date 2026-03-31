@@ -99,7 +99,6 @@ const loginUser = async (req, res) => {
   }
 };
 
-
 const logoutUser = async (req, res) => {
   try {
     req.user.token = null;
@@ -107,11 +106,10 @@ const logoutUser = async (req, res) => {
 
     res.status(204).send(); // No Content
   } catch (error) {
-console.error(error); // sunucu loglarına yaz
-res.status(500).json({ message: 'Server error' });
-}
+    console.error(error); // sunucu loglarına yaz
+    res.status(500).json({ message: 'Server error' });
+  }
 };
-
 
 const getCurrentUser = async (req, res) => {
   try {
@@ -127,9 +125,9 @@ const getCurrentUser = async (req, res) => {
       },
     });
   } catch (error) {
-console.error(error); // sunucu loglarına yaz
-res.status(500).json({ message: 'Server error' });
-}
+    console.error(error); // sunucu loglarına yaz
+    res.status(500).json({ message: 'Server error' });
+  }
 };
 
 module.exports = { registerUser, loginUser, logoutUser, getCurrentUser };

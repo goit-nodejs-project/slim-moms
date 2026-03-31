@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../../redux/diary/diaryOperations';
 import axiosInstance from '../../api/axiosInstance';
 import styles from './DiaryAddProductForm.module.css';
 
 const DiaryAddProductForm = () => {
   const dispatch = useDispatch();
+  const date = useSelector((state) => state.diary.date);
+  const [selectedProductId, setSelectedProductId] = useState(null);
   const [productName, setProductName] = useState('');
   const [grams, setGrams] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -30,7 +32,7 @@ const DiaryAddProductForm = () => {
       lastQueryRef.current = value;
 
       try {
-        const { data } = await axiosInstance.get(`/products?search=${value}`);
+        const { data } = await axiosInstance.get(`/products?q=${value}`);
 
         if (lastQueryRef.current === value) {
           setSuggestions(Array.isArray(data) ? data : data.products || []);
@@ -43,6 +45,7 @@ const DiaryAddProductForm = () => {
 
   const handleSelectSuggestion = (item) => {
     setProductName(item.title);
+    setSelectedProductId(item._id);
     setShowDropdown(false);
   };
 
@@ -50,13 +53,24 @@ const DiaryAddProductForm = () => {
     e.preventDefault();
     setError('');
 
-    if (!productName || !grams || grams <= 0) {
-      setError('Please enter valid product name and grams');
+    if (!selectedProductId) {
+      setError('Please select a product from the list');
+      return;
+    }
+
+    if (!grams || grams <= 0) {
+      setError('Please enter valid grams');
       return;
     }
 
     try {
-      await dispatch(addProduct({ productName, grams: Number(grams) })).unwrap();
+      await dispatch(
+        addProduct({
+          date,
+          productId: selectedProductId,
+          weight: Number(grams),
+        })
+      ).unwrap();
       setProductName('');
       setGrams('');
       setSuggestions([]);

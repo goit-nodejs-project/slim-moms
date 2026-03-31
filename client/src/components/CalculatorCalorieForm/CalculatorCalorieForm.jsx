@@ -4,16 +4,16 @@ import { calculateDailyCalories } from '../../redux/calculator/calculatorOperati
 import Loader from '../Loader/Loader';
 import styles from './CalculatorCalorieForm.module.css';
 
-const validate = ({ height, weight, age, desiredWeight, bloodType }) => {
+const validate = ({ height, currentWeight, age, desiredWeight, bloodType }) => {
   const errors = {};
 
   if (!height) errors.height = 'Height is required';
   else if (isNaN(height) || +height < 100 || +height > 250)
     errors.height = 'Enter a valid height (100–250 cm)';
 
-  if (!weight) errors.weight = 'Weight is required';
-  else if (isNaN(weight) || +weight < 20 || +weight > 500)
-    errors.weight = 'Enter a valid weight (20–500 kg)';
+  if (!currentWeight) errors.currentWeight = 'Current weight is required';
+  else if (isNaN(currentWeight) || +currentWeight < 20 || +currentWeight > 500)
+    errors.currentWeight = 'Enter a valid current weight (20–500 kg)';
 
   if (!age) errors.age = 'Age is required';
   else if (isNaN(age) || +age < 10 || +age > 120)
@@ -36,7 +36,7 @@ const CalculatorCalorieForm = () => {
 
   const [fields, setFields] = useState({
     height: '',
-    weight: '',
+    currentWeight: '',
     age: '',
     desiredWeight: '',
     bloodType: '',
@@ -66,7 +66,7 @@ const CalculatorCalorieForm = () => {
     await dispatch(
       calculateDailyCalories({
         height: +fields.height,
-        weight: +fields.weight,
+        currentWeight: +fields.currentWeight,
         age: +fields.age,
         desiredWeight: +fields.desiredWeight,
         bloodType: +fields.bloodType,
@@ -91,7 +91,9 @@ const CalculatorCalorieForm = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errors.height && <span className={styles.errorMsg}>{errors.height}</span>}
+            {errors.height && (
+              <span className={styles.errorMsg}>{errors.height}</span>
+            )}
           </div>
 
           {/* Desired weight */}
@@ -121,7 +123,9 @@ const CalculatorCalorieForm = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errors.age && <span className={styles.errorMsg}>{errors.age}</span>}
+            {errors.age && (
+              <span className={styles.errorMsg}>{errors.age}</span>
+            )}
           </div>
 
           {/* Blood type */}
@@ -152,14 +156,16 @@ const CalculatorCalorieForm = () => {
           <div className={styles.field}>
             <input
               type="number"
-              name="weight"
-              className={`${styles.input} ${errors.weight ? styles.inputError : ''}`}
-              placeholder="Weight (kg) *"
-              value={fields.weight}
+              name="currentWeight"
+              className={`${styles.input} ${errors.currentWeight ? styles.inputError : ''}`}
+              placeholder="Current weight (kg) *"
+              value={fields.currentWeight}
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errors.weight && <span className={styles.errorMsg}>{errors.weight}</span>}
+            {errors.currentWeight && (
+              <span className={styles.errorMsg}>{errors.currentWeight}</span>
+            )}
           </div>
         </div>
 

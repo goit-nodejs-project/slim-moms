@@ -1,10 +1,13 @@
+import { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
 
 import { store, persistor } from './redux/store';
+import { refreshUser } from './redux/auth/authOperations';
 
 import Header from './components/Header/Header';
 import Loader from './components/Loader/Loader';
@@ -18,6 +21,12 @@ import DiaryPage from './pages/DiaryPage/DiaryPage';
 import CalculatorPage from './pages/CalculatorPage/CalculatorPage';
 
 const AppContent = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <ToastContainer position="top-right" autoClose={3000} />
