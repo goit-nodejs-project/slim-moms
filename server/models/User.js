@@ -8,6 +8,21 @@ const usersSchema = new Schema(
       required: true,
       trim: true
     },
+const userSchema = new Schema(
+  {
+    // auth fields will go here (name, email, password, token etc)
+
+    dailyCalories: {
+      type: Number,
+      default: 0,
+    },
+    notRecommendedProducts: {
+      type: [String],
+      default: [],
+    },
+  },
+  { versionKey: false }
+);
 
     email: {
       type: String,
