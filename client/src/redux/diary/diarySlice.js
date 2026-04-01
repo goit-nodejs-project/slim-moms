@@ -7,6 +7,7 @@ const diarySlice = createSlice({
   name: 'diary',
   initialState: {
     products: [],
+    dayInfoId: null,
     date: today,
     summary: {
       totalCalories: 0,
@@ -31,6 +32,7 @@ const diarySlice = createSlice({
         state.isLoading = false;
         const { dayInfo, dailyCalories, percentOfNormal } = action.payload ?? {};
 
+        state.dayInfoId = dayInfo?._id ?? null;
         state.products = dayInfo?.eatenProducts ?? [];
         state.summary = {
           totalCalories: dayInfo?.daySummary?.eatenCalories ?? 0,
