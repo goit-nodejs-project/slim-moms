@@ -1,53 +1,38 @@
-.page {
-  min-height: calc(100vh - 80px);
-  background-color: #fff9f4;
-}
-
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
-
-/* ── Layout: mobilde tek kolon, desktop'ta yan yana ── */
 .layout {
   display: flex;
-  flex-direction: column;
-  gap: 40px;
+  flex: 1;
+  overflow: hidden;
 }
 
-/* ── Form section ── */
-.formSection {
+.main {
+  flex: 1;
+  padding: 32px;
   display: flex;
   flex-direction: column;
   gap: 32px;
-  width: 100%;
 }
 
-/* ── Title ── */
 .title {
-  font-family: 'Verdana', Geneva, Tahoma, sans-serif;
-  font-size: 18px;
+  font-family: Verdana;
+  font-size: 34px;
   font-weight: 700;
   line-height: 1.4;
   color: #212121;
   letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin: 0;
+  margin-bottom: 58px;
+  max-width: 608px;
 }
 
-.titleAccent {
-  color: #fc842d;
-}
 
-/* ── Sidebar section ── */
-.sidebarSection {
-  width: 100%;
+@media (max-width: 1279px) {
+  .layout {
+    flex-direction: column;
+  }
 }
 
 @media screen and (min-width: 768px) {
-  .container {
-    padding: 60px 32px;
+  .main {
+    padding: 40px 32px;
   }
 
   .title {
@@ -56,27 +41,17 @@
 }
 
 @media screen and (min-width: 1280px) {
-  .container {
-    padding: 80px 0;
-  }
-
-  .layout {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 32px;
-  }
-
-  .formSection {
-    flex: 1 1 60%;
-  }
-
-  .sidebarSection {
-    flex: 0 0 calc(40% - 32px);
-    position: sticky;
-    top: 100px;
+  .main {
+    padding: 52px 32px;
   }
 
   .title {
-    font-size: 24px;
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 767px) {
+  .main {
+    padding: 24px;
   }
 }

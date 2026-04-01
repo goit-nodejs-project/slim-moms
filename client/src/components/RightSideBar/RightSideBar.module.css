@@ -3,7 +3,7 @@
   flex-shrink: 0;
   padding: 32px;
   background-color: #F0F1F3;
-  min-height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -13,6 +13,9 @@
 
 .decorTablet {
   display: none;
+  background-image: url("../../assets/images/tablet-registor-layer1.png");
+  background-repeat: no-repeat;
+  background-position: bottom right;
 }
 
 .placeholder {
@@ -79,8 +82,7 @@
 @media (max-width: 1279px) {
   .sidebar {
     width: 100%;
-    min-height: 300px;
-    padding: 24px;
+    height: 326px;
   }
 
   .decorTablet {
@@ -88,12 +90,12 @@
     position: absolute;
     width: 428px;
     height: 602px;
-    left: 500px;
-    top: 20px;
+    bottom: 0;
     right: 0;
     background-image: url("../../assets/images/tablet-home-layer1.png");
     background-repeat: no-repeat;
     background-size: contain;
+    background-position: bottom right;
     pointer-events: none;
     z-index: 0;
   }
@@ -115,10 +117,7 @@
   }
 
   .decorTablet {
-    width: 300px;
-    height: 420px;
-    top: -50px;
-    right: 0;
+    display: none;
   }
 
   .placeholder {
@@ -130,10 +129,6 @@
 @media (max-width: 479px) {
   .sidebar {
     padding: 16px;
-  }
-
-  .decorTablet {
-    display: none;
   }
 
   .placeholder {

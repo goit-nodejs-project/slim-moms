@@ -14,6 +14,7 @@ const Header = () => {
   const burgerRef = useRef(null);
   const { pathname } = useLocation();
 
+  const isPageWithSidebar = pathname === '/diary' || pathname === '/calculator';
   const prevPathname = useRef(pathname);
 
   useEffect(() => {
@@ -55,36 +56,37 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.container}>
-        {/* Sol grup: Logo + divider + auth links (logout) */}
+      <div className={styles.inner}>
+        {/* Sol: Logo + nav */}
         <div className={styles.leftGroup}>
           <Logo isLoggedIn={isLoggedIn} />
 
-          {!isLoggedIn && (
+          {isLoggedIn ? (
+            <>
+              <div className={`${styles.divider} ${styles.desktopOnly}`} />
+              <div className={styles.desktopOnly}>
+                <Navigation onLinkClick={closeMenu} />
+              </div>
+            </>
+          ) : (
             <>
               <div className={styles.divider} />
               <nav className={styles.authLinks}>
-                <NavLink to="/login" className={getAuthClass} end>
-                  LOG IN
-                </NavLink>
-                <NavLink to="/register" className={getAuthClass} end>
-                  REGISTRATION
-                </NavLink>
+                <NavLink to="/login" className={getAuthClass} end>LOG IN</NavLink>
+                <NavLink to="/register" className={getAuthClass} end>REGISTRATION</NavLink>
               </nav>
             </>
           )}
         </div>
 
-        {/* Sağ: Desktop nav (login) */}
+        {/* Sağ: gri panel — sadece desktop */}
         {isLoggedIn && (
-          <div className={styles.desktopNav}>
-            <Navigation onLinkClick={closeMenu} />
-            <div className={styles.divider} />
+          <div className={`${styles.rightPanel} ${isPageWithSidebar ? styles.rightPanelGrey : ''}`}>
             <UserInfo />
           </div>
         )}
 
-        {/* Hamburger (her durumda mobilde görünür) */}
+        {/* Hamburger */}
         <button
           ref={burgerRef}
           className={styles.burger}
@@ -93,15 +95,9 @@ const Header = () => {
           aria-expanded={isMenuOpen}
           aria-controls="mobile-menu"
         >
-          <span
-            className={`${styles.burgerLine} ${isMenuOpen ? styles.burgerLineTop : ''}`}
-          />
-          <span
-            className={`${styles.burgerLine} ${isMenuOpen ? styles.burgerLineMid : ''}`}
-          />
-          <span
-            className={`${styles.burgerLine} ${isMenuOpen ? styles.burgerLineBot : ''}`}
-          />
+          <span className={`${styles.burgerLine} ${isMenuOpen ? styles.burgerLineTop : ''}`} />
+          <span className={`${styles.burgerLine} ${isMenuOpen ? styles.burgerLineMid : ''}`} />
+          <span className={`${styles.burgerLine} ${isMenuOpen ? styles.burgerLineBot : ''}`} />
         </button>
       </div>
 
@@ -121,20 +117,8 @@ const Header = () => {
             </>
           ) : (
             <div className={styles.mobileAuthLinks}>
-              <NavLink
-                to="/login"
-                className={styles.authLink}
-                onClick={closeMenu}
-              >
-                Log In
-              </NavLink>
-              <NavLink
-                to="/register"
-                className={styles.authLink}
-                onClick={closeMenu}
-              >
-                Registration
-              </NavLink>
+              <NavLink to="/login" className={styles.authLink} onClick={closeMenu}>Log In</NavLink>
+              <NavLink to="/register" className={styles.authLink} onClick={closeMenu}>Registration</NavLink>
             </div>
           )}
         </nav>

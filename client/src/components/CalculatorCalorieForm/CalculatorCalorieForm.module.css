@@ -1,48 +1,43 @@
-.wrapper {
-  position: relative;
-  width: 100%;
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 250px));
+  column-gap: 32px;
+  row-gap: 32px;
+  max-width: 560px;
 }
 
-/* ── Form ── */
-.form {
+.column {
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
-/* ── Grid: 1 kolon mobil, 2 kolon tablet+ ── */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+.fieldGroup {
+  margin: 0;
 }
 
-/* ── Field ── */
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.fieldGroup label,
+.fieldGroup span {
+  display: block;
+  margin: 0 0 14px;
+  color: #9b9faa;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
-/* ── Input ── */
 .input {
   width: 100%;
-  padding: 12px 0;
+  border: 0;
+  border-bottom: 1px solid #e0e0e0;
   background: transparent;
-  border: none;
-  border-bottom: 1px solid rgba(33, 33, 33, 0.2);
-  outline: none;
-
-  font-family: 'Verdana', Geneva, Tahoma, sans-serif;
+  padding: 0 0 13px;
+  color: #9B9FAA;
   font-size: 14px;
   font-weight: 700;
-  color: #212121;
-  letter-spacing: 0.04em;
-
-  /* Chrome number input ok'larını gizle */
-  -moz-appearance: textfield;
-  appearance: textfield;
-  transition: border-color 0.2s ease;
+  line-height: 1.2;
+  outline: none;
 }
 
 .input::-webkit-outer-spin-button,
@@ -51,123 +46,134 @@
   margin: 0;
 }
 
-.input::placeholder {
-  color: rgba(33, 33, 33, 0.4);
-  font-weight: 400;
+.input {
+  -moz-appearance: textfield;
 }
 
 .input:focus {
   border-bottom-color: #fc842d;
 }
 
-.inputError {
-  border-bottom-color: #d80027 !important;
+.input.inputError {
+  border-bottom-color: #f00 !important;
 }
 
-/* ── Error message ── */
-.errorMsg {
-  font-family: 'Verdana', Geneva, Tahoma, sans-serif;
-  font-size: 10px;
-  color: #d80027;
+.btn {
+  grid-column: 1 / -1;
+  align-self: flex-start;
+  margin-left: auto;
+  padding: 12px 32px;
+  background-color: #fc842d;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: fit-content;
+  box-shadow: 0px 4px 10px 0px #FC842D80;
+}
+
+.btn:hover:not(:disabled) {
+  background-color: #f27b24;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fieldGroup .error {
+  color: #f00 !important;
+  margin: 0;
+  font-size: 12px;
+}
+
+.label {
+  display: block;
+  margin: 0 0 14px;
+  color: #9b9faa;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 700;
   letter-spacing: 0.04em;
 }
 
-/* ── Blood type radio group ── */
-.bloodLabel {
-  font-family: 'Verdana', Geneva, Tahoma, sans-serif;
+.bloodTypeLabel {
+  display: block;
+  margin: 0 0 14px;
+  color: #9b9faa;
   font-size: 14px;
-  color: rgba(33, 33, 33, 0.4);
-  font-weight: 400;
-  margin: 0 0 8px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.radioGroup {
+.bloodTypeLabelError {
+  border-bottom-color: #f00 !important;
+}
+
+.bloodTypeGroup {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  gap: 24px;
 }
 
 .radioLabel {
   display: flex;
   align-items: center;
   gap: 6px;
-  cursor: pointer;
-  font-family: 'Verdana', Geneva, Tahoma, sans-serif;
+  color: #9b9faa;
   font-size: 14px;
-  font-weight: 700;
-  color: #212121;
-  letter-spacing: 0.04em;
-  user-select: none;
+  cursor: pointer;
 }
 
-/* Gerçek radio'yu gizle */
+.radioWrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .radioInput {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* Custom radio */
-.radioCustom {
-  display: inline-block;
-  width: 15px;
-  height: 15px;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccd0d8;
   border-radius: 50%;
-  border: 2px solid rgba(33, 33, 33, 0.2);
-  flex-shrink: 0;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
+  background-color: #ffffff;
   position: relative;
-}
-
-.radioInput:checked + .radioCustom {
-  border-color: #fc842d;
-  background-color: #fc842d;
-}
-
-.radioInput:checked + .radioCustom::after {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  border-radius: 50%;
-  background-color: #fff;
-}
-
-/* ── Submit button ── */
-.submitBtn {
-  align-self: flex-start;
-  font-family: 'Verdana', Geneva, Tahoma, sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #fff;
-  background-color: #fc842d;
-  border: 2px solid #fc842d;
-  border-radius: 30px;
-  padding: 13px 32px;
+  margin: 0;
   cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  display: inline-block;
 }
 
-.submitBtn:hover:not(:disabled) {
-  background-color: #f07400;
-  border-color: #f07400;
+.radioInput:checked {
+  border-color: #fc842d;
 }
 
-.submitBtn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.radioInput:checked::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background-color: #fc842d;
 }
 
-@media screen and (min-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 20px 32px;
+.radioInput:focus {
+  outline: none;
+}
+
+@media (max-width: 767px) {
+  .form {
+    grid-template-columns: 1fr;
   }
-}
 
-@media screen and (min-width: 1280px) {
-  .grid {
-    gap: 24px 40px;
+  .btn {
+    margin-left: 0;
+    margin-right: auto;
   }
 }

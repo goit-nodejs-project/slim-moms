@@ -4,31 +4,43 @@
   top: 0;
   z-index: 100;
   width: 100%;
-  background-color: #fff;
+  background: #fff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
 }
 
-.container {
+/* header'ın iç flex wrapper'ı — tam genişlik */
+.inner {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1280px;
-  margin: 30px 15px;
-  padding: 16px 20px;
+  align-items: stretch;
+  width: 100%;
 }
 
-/* ── Sol grup: Logo + divider + auth links ── */
+/* ── Sol grup ── */
 .leftGroup {
   display: flex;
   align-items: center;
   gap: 24px;
+  flex: 1;
+  padding: 16px 20px;
 }
 
-/* ── Desktop nav (login durumu, sağda) ── */
-.desktopNav {
+/* ── Sağ gri panel — sidebar ile aynı genişlik ── */
+.rightPanel {
   display: none;
   align-items: center;
-  gap: 24px;
+  justify-content: flex-end;
+  width: 517px;
+  flex-shrink: 0;
+  padding: 0 32px;
+}
+
+.rightPanelGrey {
+  background: #F0F1F3;
+}
+
+/* ── Sadece desktop'ta görünen elemanlar ── */
+.desktopOnly {
+  display: none;
 }
 
 /* ── Divider ── */
@@ -39,7 +51,7 @@
   flex-shrink: 0;
 }
 
-/* ── Auth links: mobilde gizli, tablet+ görünür ── */
+/* ── Auth links ── */
 .authLinks {
   display: none;
   align-items: center;
@@ -56,14 +68,8 @@
   transition: color 0.2s ease;
 }
 
-.authLink:hover {
-  color: #fc842d;
-}
-
-/* Aktif auth link */
-.authLinkActive {
-  color: #212121;
-}
+.authLink:hover { color: #fc842d; }
+.authLinkActive { color: #212121; }
 
 /* ── Hamburger ── */
 .burger {
@@ -126,15 +132,11 @@
 
 /* ── Tablet: 768px+ ── */
 @media screen and (min-width: 768px) {
-  .container {
+  .leftGroup {
     padding: 20px 32px;
   }
 
   .authLinks {
-    display: flex;
-  }
-
-  .desktopNav {
     display: flex;
   }
 
@@ -149,23 +151,31 @@
 
 /* ── Desktop: 1280px+ ── */
 @media screen and (min-width: 1280px) {
-  .container {
-    padding: 24px 0;
+  .leftGroup {
+    padding: 24px 32px 24px 0;
   }
 
-  .desktopNav {
-    gap: 32px;
+  .desktopOnly {
+    display: flex;
+  }
+
+  .rightPanel {
+    display: flex;
   }
 
   .leftGroup {
     gap: 32px;
   }
 
-  .authLink {
-    font-size: 14px;
-  }
-
   .header {
     box-shadow: none;
+  }
+}
+
+/* ── Tablet ve mobil ── */
+@media (max-width: 1279px) {
+  .burger {
+    display: flex;
+    margin-right: 16px;
   }
 }
