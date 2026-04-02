@@ -38,9 +38,20 @@ Unregistered users can also use a quick calorie calculator on the landing page w
 
 ## Live Demo
 
-> Live
+> **App:** [https://goit-slim-moms.vercel.app](https://goit-slim-moms.vercel.app)
 
-> API Documentation (Swagger UI): `https://goit-server-slim-moms.onrender.com/api-docs`
+> **API Documentation (Swagger UI):** [https://goit-server-slim-moms.onrender.com/api-docs](https://goit-server-slim-moms.onrender.com/api-docs)
+
+---
+
+## Screenshots
+
+<!-- Add screenshots below. Recommended: Main Page, Diary Page, Calculator Page -->
+<!-- Example: ![Main Page](./screenshots/main-page.png) -->
+
+| Main Page                                 | Login Page                                  | Registration Page                                         | Diary Page                                  | Calculator Page                                       |
+| ----------------------------------------- | ------------------------------------------- | --------------------------------------------------------- | ------------------------------------------- | ----------------------------------------------------- |
+| ![Main Page](./screenshots/main-page.png) | ![Login Page](./screenshots/login-page.png) | ![Registration Page](./screenshots/registration-page.png) | ![Diary Page](./screenshots/diary-page.png) | ![Calculator Page](./screenshots/calculator-page.png) |
 
 ---
 
