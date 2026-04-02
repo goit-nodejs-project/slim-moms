@@ -3,13 +3,13 @@ import { useDispatch } from 'react-redux';
 import { removeProduct } from '../../redux/diary/diaryOperations';
 import styles from './DiaryProductsListItem.module.css';
 
-const DiaryProductsListItem = ({ id, title, weight, calories }) => {
+const DiaryProductsListItem = ({ id, dayInfoId, title, weight, calories }) => {
   const dispatch = useDispatch();
   const [isRemoving, setIsRemoving] = useState(false);
 
   const handleRemove = () => {
     setIsRemoving(true);
-    dispatch(removeProduct(id))
+    dispatch(removeProduct({ dayInfoId, productId: id }))
       .unwrap()
       .catch(() => setIsRemoving(false));
   };

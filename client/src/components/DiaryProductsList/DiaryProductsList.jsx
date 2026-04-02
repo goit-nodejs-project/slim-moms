@@ -4,6 +4,7 @@ import styles from './DiaryProductsList.module.css';
 
 const DiaryProductsList = () => {
   const products = useSelector((state) => state.diary.products);
+  const dayInfoId = useSelector((state) => state.diary.dayInfoId);
 
   if (!products || products.length === 0) {
     return <p className={styles.empty}>No products added yet</p>;
@@ -15,6 +16,7 @@ const DiaryProductsList = () => {
         <DiaryProductsListItem
           key={product._id}
           id={product._id}
+          dayInfoId={dayInfoId}
           title={product.title}
           weight={product.weight}
           calories={product.calories}

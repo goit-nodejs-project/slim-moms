@@ -3,7 +3,7 @@
   flex-shrink: 0;
   padding: 32px;
   background-color: #F0F1F3;
-  min-height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -12,7 +12,17 @@
 }
 
 .decorTablet {
-  display: none;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 428px;
+  height: 400px;
+  background-image: url("../../assets/images/tablet-home-layer1.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom right;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .placeholder {
@@ -31,6 +41,8 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  position: relative;
+  z-index: 2;
 }
 
 .summaryItem {
@@ -54,6 +66,8 @@
 
 .notRecommended {
   margin-top: 8px;
+  position: relative;
+  z-index: 2;
 }
 
 .notRecommendedTitle {
@@ -83,27 +97,9 @@
     padding: 24px;
   }
 
-  .decorTablet {
-    display: block;
-    position: absolute;
-    width: 428px;
-    height: 602px;
-    left: 500px;
-    top: 20px;
-    right: 0;
-    background-image: url("../../assets/images/tablet-home-layer1.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    pointer-events: none;
-    z-index: 0;
-  }
-
   .placeholder {
     padding-top: 20px;
     margin-top: 70px;
-    position: relative;
-    z-index: 2;
-    text-align: center;
   }
 }
 
@@ -111,29 +107,20 @@
   .sidebar {
     width: 100%;
     padding: 20px;
-    z-index: 2;
   }
 
   .decorTablet {
-    width: 300px;
-    height: 420px;
-    top: -50px;
-    right: 0;
+    display: none;
   }
 
   .placeholder {
     margin-top: 20px;
-    text-align: center;
   }
 }
 
 @media (max-width: 479px) {
   .sidebar {
     padding: 16px;
-  }
-
-  .decorTablet {
-    display: none;
   }
 
   .placeholder {

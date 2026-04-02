@@ -7,6 +7,7 @@ const diarySlice = createSlice({
   name: 'diary',
   initialState: {
     products: [],
+    dayInfoId: null,
     date: today,
     summary: {
       totalCalories: 0,
@@ -29,11 +30,14 @@ const diarySlice = createSlice({
       })
       .addCase(fetchDiary.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.products = action.payload.dayInfo.eatenProducts;
+        const { dayInfo, dailyCalories, percentOfNormal } = action.payload ?? {};
+
+        state.dayInfoId = dayInfo?._id ?? null;
+        state.products = dayInfo?.eatenProducts ?? [];
         state.summary = {
-          totalCalories: action.payload.dayInfo.daySummary.eatenCalories,
-          dailyRate: action.payload.dailyCalories,
-          percentsOfDailyRate: action.payload.percentOfNormal,
+          totalCalories: dayInfo?.daySummary?.eatenCalories ?? 0,
+          dailyRate: dailyCalories ?? null,
+          percentsOfDailyRate: percentOfNormal ?? null,
         };
       })
       .addCase(fetchDiary.rejected, (state, action) => {
@@ -41,8 +45,8 @@ const diarySlice = createSlice({
         state.error = action.payload;
       })
       .addCase(addProduct.fulfilled, (state, action) => {
-        state.products = action.payload.eatenProducts;
-        state.summary.totalCalories = action.payload.daySummary.eatenCalories;
+        state.products = action.payload?.eatenProducts ?? [];
+        state.summary.totalCalories = action.payload?.daySummary?.eatenCalories ?? 0;
       })
       .addCase(removeProduct.fulfilled, (state, action) => {
         const removed = state.products.find(

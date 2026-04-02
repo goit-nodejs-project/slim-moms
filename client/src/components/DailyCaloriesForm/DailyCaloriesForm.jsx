@@ -75,7 +75,7 @@ const DailyCaloriesForm = ({ onSuccess }) => {
       dispatch(
         setLocalResult({
           dailyCalories: Math.round(dailyCalories),
-          notRecommended: [],
+          notRecommendedProducts: [],
         })
       );
 
