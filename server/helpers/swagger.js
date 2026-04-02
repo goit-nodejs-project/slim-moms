@@ -7,7 +7,7 @@ const swaggerOptions = {
     info: {
       title: 'Slim Moms API',
       version: '1.0.0',
-      description: 'Diyet ve Kalori Takip Uygulaması API Dokümantasyonu',
+      description: 'Diet and Calorie Tracking Application API Documentation',
     },
     servers: [{ url: process.env.API_URL || 'http://localhost:5000' }],
     components: {

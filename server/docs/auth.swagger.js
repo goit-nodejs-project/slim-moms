@@ -2,14 +2,14 @@
  * @swagger
  * tags:
  *   name: Auth
- *   description: Kullanıcı kayıt ve yetkilendirme işlemleri
+ *   description: User registration and authentication operations
  */
 
 /**
  * @swagger
  * /api/auth/register:
  *   post:
- *     summary: Yeni kullanıcı kaydı oluşturur
+ *     summary: Register a new user
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -33,18 +33,18 @@
  *                 example: "123456"
  *     responses:
  *       201:
- *         description: Kullanıcı başarıyla oluşturuldu
+ *         description: User successfully created
  *       409:
- *         description: Email zaten kullanımda
+ *         description: Email already in use
  *       500:
- *         description: Sunucu hatası
+ *         description: Server error
  */
 
 /**
  * @swagger
  * /api/auth/login:
  *   post:
- *     summary: Kullanıcı girişi yapar ve token döner
+ *     summary: Log in and receive an access token
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -64,37 +64,37 @@
  *                 example: "123456"
  *     responses:
  *       200:
- *         description: Giriş başarılı
+ *         description: Login successful
  *       401:
- *         description: Hatalı email veya şifre
+ *         description: Invalid email or password
  */
 
 /**
  * @swagger
  * /api/auth/current:
  *   get:
- *     summary: Mevcut giriş yapmış kullanıcı bilgilerini getirir
+ *     summary: Get the currently authenticated user's information
  *     tags: [Auth]
  *     security:
  *       - BearerAuth: []
  *     responses:
  *       200:
- *         description: Kullanıcı bilgileri başarıyla getirildi
+ *         description: User information retrieved successfully
  *       401:
- *         description: Yetkisiz erişim (Geçersiz veya eksik token)
+ *         description: Unauthorized — invalid or missing token
  */
 
 /**
  * @swagger
  * /api/auth/logout:
  *   post:
- *     summary: Kullanıcı oturumunu sonlandırır
+ *     summary: Log out and end the current session
  *     tags: [Auth]
  *     security:
  *       - BearerAuth: []
  *     responses:
  *       204:
- *         description: Oturum başarıyla kapatıldı
+ *         description: Session ended successfully
  *       401:
- *         description: Yetkisiz erişim
+ *         description: Unauthorized
  */
