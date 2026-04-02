@@ -14,9 +14,12 @@ const Logo = ({ isLoggedIn }) => {
       aria-label="SlimMom - Go to home"
     >
       {/* SVG Icon */}
-     <svg className={styles.icon}>
-      <use href='/slim-moms.svg'></use>
-     </svg>
+      <img
+        src="/slim-moms.svg"
+        alt=""
+        className={styles.icon}
+        aria-hidden="true"
+      />
 
       {/* Text — hidden on mobile, visible on tablet+ */}
       <span className={styles.text}>
