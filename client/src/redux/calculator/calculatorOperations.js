@@ -8,7 +8,7 @@ export const calculateDailyCalories = createAsyncThunk(
   async (formData, thunkAPI) => {
     thunkAPI.dispatch(showLoader());
     try {
-      const { data } = await axiosInstance.post('/products/private', formData);
+      const { data } = await axiosInstance.post('products/private', formData);
       toast.success('Daily calories calculated');
       return data; // fulfilled → extraReducers'da state'e yazılır
     } catch (error) {

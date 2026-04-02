@@ -8,7 +8,7 @@ export const register = createAsyncThunk(
   async (credentials, thunkAPI) => {
     thunkAPI.dispatch(showLoader());
     try {
-      const { data } = await axiosInstance.post('/auth/register', credentials);
+      const { data } = await axiosInstance.post('auth/register', credentials);
       toast.success('Registration successful');
       return data;
     } catch (error) {
@@ -25,7 +25,7 @@ export const logIn = createAsyncThunk(
   async (credentials, thunkAPI) => {
     thunkAPI.dispatch(showLoader());
     try {
-      const { data } = await axiosInstance.post('/auth/login', credentials);
+      const { data } = await axiosInstance.post('auth/login', credentials);
       toast.success('Login successful');
       return data;
     } catch (error) {
