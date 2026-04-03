@@ -28,7 +28,6 @@ const seed = async () => {
   await Product.deleteMany({});
 
   const inserted = await Product.insertMany(products);
-  console.log(`seeded ${inserted.length} products`);
 
   await mongoose.disconnect();
   process.exit(0);
