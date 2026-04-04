@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { calculateDailyCalories } from '../../redux/calculator/calculatorOperations';
 import { setLocalResult } from '../../redux/calculator/calculatorSlice';
-import { showLoader, hideLoader } from '../../redux/loader/loaderSlice';
 import styles from './DailyCaloriesForm.module.css';
 
 const initialState = {
@@ -83,15 +82,11 @@ const DailyCaloriesForm = ({ onSuccess }) => {
       return;
     }
 
-    dispatch(showLoader());
-
     try {
       await dispatch(calculateDailyCalories(formData)).unwrap();
       onSuccess();
     } catch (error) {
       console.error('Error calculating daily calories', error);
-    } finally {
-      dispatch(hideLoader());
     }
   };
 
@@ -184,7 +179,7 @@ const DailyCaloriesForm = ({ onSuccess }) => {
                     onChange={handleChange}
                     className={styles.radioInput}
                   />
-                {type}
+                  {type}
                 </div>
               </label>
             ))}

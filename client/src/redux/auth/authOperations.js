@@ -55,7 +55,16 @@ export const refreshUser = createAsyncThunk(
   async (_, thunkAPI) => {
     const { token } = thunkAPI.getState().auth;
     if (!token) return thunkAPI.rejectWithValue('No token');
-    const { data } = await axiosInstance.get('/auth/current');
-    return data;
+
+    thunkAPI.dispatch(showLoader());
+    try {
+      const { data } = await axiosInstance.get('/auth/current');
+      return data;
+    } catch (error) {
+      toast.error(error.response?.data?.message ?? 'Session expired, please log in again');
+      return thunkAPI.rejectWithValue(error.response?.data?.message);
+    } finally {
+      thunkAPI.dispatch(hideLoader());
+    }
   }
 );
