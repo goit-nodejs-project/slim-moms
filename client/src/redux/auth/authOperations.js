@@ -61,7 +61,6 @@ export const refreshUser = createAsyncThunk(
       const { data } = await axiosInstance.get('/auth/current');
       return data;
     } catch (error) {
-      toast.error(error.response?.data?.message ?? 'Session expired, please log in again');
       return thunkAPI.rejectWithValue(error.response?.data?.message);
     } finally {
       thunkAPI.dispatch(hideLoader());
